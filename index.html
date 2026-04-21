@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYAHOLLL!!!</title>
+    <style>
+        /* --- RESET & VARIABLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --fg: #000000;
+            --border-width: 4px;
+            --radius-xl: 50px;
+            --radius-md: 25px; 
+            --radius-sm: 15px;
+            --hot-color: #ff3300;
+        }
+
+        body {
+            font-family: sans-serif;
+            color: var(--fg);
+            line-height: 1.5;
+            overflow-x: hidden;
+            background-image: url('public/images/background.webp'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            border: none; border-radius: 0; margin: 0; min-height: 100vh; position: relative;
+        }
+
+        /* --- UTILITIES --- */
+        a { text-decoration: none; color: inherit; cursor: pointer; }
+        img { display: block; max-width: 100%; height: auto; }
+        button { font-family: sans-serif; cursor: pointer; font-weight: bold; border: none; background: none; }
+        .container { max-width: 100%; padding: 20px; margin: 0 auto; }
+        @media(min-width: 768px) { .container { padding: 40px; max-width: 1000px; } }
+
+        /* --- MARQUEE --- */
+        .marquee-container {
+            border-top: var(--border-width) solid var(--fg);
+            border-bottom: var(--border-width) solid var(--fg);
+            background: var(--fg); color: var(--bg);
+            padding: 10px 0; overflow: hidden; white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-block; animation: marquee 10s linear infinite;
+            font-size: 1.2rem; font-weight: bold; text-transform: uppercase;
+        }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* --- HERO --- */
+        #hero { padding: 50px 20px 20px 20px; text-align: center; border-bottom: none; background: transparent; }
+        .hero-title { 
+            font-size: 5rem; line-height: 1; margin-bottom: 10px; 
+            font-weight: 900; letter-spacing: -4px; text-shadow: 5px 5px 0px #fff; 
+        }
+        @media(max-width: 768px) { .hero-title { font-size: 3.5rem; } }
+
+        .btn-hot-sale-hero {
+            background: #000; color: #fff;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            border: 4px dashed #fff; 
+            outline: 4px solid #000;
+            margin-top: 10px;
+            display: inline-block;
+            transform: rotate(-3deg);
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+            animation: shake 0.5s infinite;
+            text-transform: uppercase;
+        }
+        .btn-hot-sale-hero:hover { background: #fff; color: #000; border-color: #000; }
+        @keyframes shake {
+            0% { transform: rotate(-3deg) scale(1); }
+            50% { transform: rotate(3deg) scale(1.05); }
+            100% { transform: rotate(-3deg) scale(1); }
+        }
+
+        /* --- CATALOG SECTION --- */
+        #catalog { display: block; padding: 20px; min-height: 80vh; background: transparent; border: none; }
+        
+        .search-area { max-width: 900px; margin: 0 auto 20px auto; }
+        .search-container {
+            position: relative; width: 100%; border: 4px solid var(--fg);
+            border-radius: 60px; background: #fff; padding: 8px 10px 8px 25px;
+            display: flex; align-items: center; box-shadow: 8px 8px 0px var(--fg); 
+        }
+        .search-input { flex-grow: 1; border: none; outline: none; font-size: 1.2rem; font-family: sans-serif; text-transform: uppercase; font-weight: 600; color: var(--fg); }
+        .search-btn { width: 50px; height: 50px; background: var(--fg); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .search-btn svg { width: 24px; height: 24px; stroke: #fff; stroke-width: 3; }
+
+        /* FILTER STYLING */
+        .filter-row { display: flex; align-items: center; gap: 15px; margin-top: 25px; flex-wrap: wrap; justify-content: center; }
+        .filter-label { font-size: 1.2rem; font-weight: 800; text-transform: uppercase; margin-right: 5px; text-shadow: 2px 2px 0 #fff; }
+        .filter-btn {
+            border: 3px solid var(--fg); background: #fff; color: var(--fg);
+            padding: 8px 25px; border-radius: 30px; font-weight: 700;
+            text-transform: uppercase; font-size: 1rem; transition: 0.2s;
+        }
+        .filter-btn:hover { transform: scale(1.05); }
+        .filter-btn.active { background: var(--fg); color: var(--bg); }
+
+        /* BANNER CUSTOM MIX 2 SISI */
+        .custom-mix-banner {
+            width: 100%; max-width: 900px; margin: 20px auto 40px auto;
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            color: #fff; border: 4px solid #fff;
+            border-radius: 20px; padding: 20px;
+            text-align: center; cursor: pointer;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+            position: relative; overflow: hidden; transition: 0.3s;
+        }
+        .custom-mix-banner:hover { transform: scale(1.02); box-shadow: 0px 15px 30px rgba(0,0,0,0.6); }
+        .custom-mix-title { font-size: 2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; animation: glitch 2s infinite; }
+        .custom-mix-desc { font-size: 1rem; margin-top: 5px; opacity: 0.8; }
+        @keyframes glitch { 0% { transform: skew(0deg); } 20% { transform: skew(-2deg); } 40% { transform: skew(2deg); } 100% { transform: skew(0deg); } }
+
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 900px; margin: 0 auto; }
+        @media(min-width: 768px) { .product-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        /* --- CARD STYLE --- */
+        .product-card {
+            border: 3px solid var(--fg); border-radius: 20px; background: #fff;
+            padding: 15px; cursor: pointer; transition: 0.2s; position: relative;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            justify-content: space-between; 
+        }
+        .product-card:hover { transform: rotate(-2deg); box-shadow: 6px 6px 0px var(--fg); }
+        
+        .card-img-container {
+            width: 100%; aspect-ratio: 1/1; border: 2px solid var(--fg); border-radius: 15px;
+            overflow: hidden; background: #eee; margin-bottom: 10px;
+        }
+        .card-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .product-name { 
+            font-weight: 800; font-size: 1rem; text-transform: uppercase; 
+            line-height: 1.2; word-wrap: break-word; width: 100%;
+            min-height: 2.4rem; display: flex; align-items: center; justify-content: center;
+        }
+        
+        .product-price { 
+            font-size: 0.8rem; margin-top: 10px; 
+            background: #000; color: #fff; padding: 5px 0;
+            border-radius: 50px; display: flex; justify-content: center; align-items: center;
+            font-weight: 900; text-transform: uppercase; width: 140px; border: none;
+        }
+
+        /* --- HOT SALE SECTION --- */
+        #hot-sale-section { display: none; padding: 40px 20px; min-height: 80vh; text-align: center; }
+        .hot-header {
+            font-size: 4rem; color: #000; font-weight: 900;
+            text-shadow: 4px 4px 0 #fff; margin-bottom: 40px; text-transform: uppercase;
+            background: #fff; display: inline-block; padding: 10px 30px; border: 4px solid #000; transform: rotate(-2deg);
+        }
+        .hot-grid { display: flex; flex-direction: column; gap: 40px; align-items: center; max-width: 1000px; margin: 0 auto; flex-wrap: wrap; }
+        @media(min-width: 768px) { .hot-grid { flex-direction: row; justify-content: center; align-items: stretch; } .hot-card { width: 30%; } }
+        
+        /* CARD HOT SALE (DIKEMBALIKAN 100% SEPERTI SEMULA) */
+        .hot-card {
+            background: #fff; border: 5px solid #000; border-radius: 5px;
+            padding: 15px; width: 100%; box-shadow: 15px 15px 0 #000;
+            transition: 0.3s; position: relative; transform: rotate(2deg);
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .hot-card:nth-child(even) { transform: rotate(-2deg); }
+        .hot-card:hover { transform: scale(1.05) rotate(0deg); z-index: 10; }
+        .hot-poster { width: 100%; height: auto; border: 3px solid #000; margin-bottom: 15px; }
+        
+        /* --- PRICE TAG --- */
+        .promo-price-tag {
+            position: absolute; top: -5%; right: -10%;
+            font-size: 8rem; font-weight: 1300; color: #ff0000;
+            border: 5px solid #ff0000; padding: 5px 15px;
+            border-radius: 50% 20% 60% 10%; transform: rotate(15deg);
+            background: rgba(255, 255, 255, 0.85); z-index: 20;
+            font-family: 'Comic Sans MS', cursive, sans-serif; pointer-events: none;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+        }
+        @media(max-width: 768px) { .promo-price-tag { font-size: 4rem; right: -5%; } }
+
+        /* --- STYLING KHUSUS TOMBOL HOT SALE (YANG DIPERBAGUS) --- */
+        .btn-take-promo {
+            display: block; width: 100%; padding: 12px; 
+            background: #ffcc00; color: #000; 
+            font-size: 1.1rem; font-weight: 900; text-transform: uppercase; 
+            border: 3px solid #000; border-radius: 10px; cursor: pointer; transition: 0.2s; 
+            box-shadow: 4px 4px 0px #000; margin-top: auto; 
+        }
+        .btn-take-promo:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #000;
+            background: #000; color: #ffcc00;
+        }
+
+        .btn-kembali {
+            margin-top: 50px; background: #fff; color: #000; 
+            padding: 15px 40px; font-size: 1.2rem; font-weight: 900; 
+            border-radius: 30px; border: 4px solid #000;
+            box-shadow: 5px 5px 0 #000; transition: 0.2s; cursor: pointer;
+        }
+        .btn-kembali:hover { 
+            background: #000; color: #fff; 
+            transform: translate(-2px, -2px); box-shadow: 7px 7px 0 #000; 
+        }
+
+        /* --- CART FLOATING BUTTON --- */
+        .cart-float {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #000; color: #fff; width: 70px; height: 70px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            border: 4px solid #fff; box-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+            cursor: pointer; z-index: 4000; transition: 0.2s;
+        }
+        .cart-float:hover { transform: scale(1.1); }
+        .cart-icon { width: 35px; height: 35px; fill: #fff; }
+        .cart-badge {
+            position: absolute; top: -5px; right: -5px;
+            background: #ff0000; color: #fff; font-weight: bold;
+            width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff;
+            display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+        }
+
+        /* --- PROMO FLOATING BUTTON (TOP RIGHT) --- */
+        .promo-float {
+            position: fixed; top: 20px; right: 20px;
+            background: #ff3300; color: #fff; 
+            width: 70px; height: 70px;
+            border-radius: 50%; display: none; /* Default Hidden */
+            align-items: center; justify-content: center; text-align: center;
+            border: 3px solid #fff; box-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+            cursor: pointer; z-index: 4000; transition: 0.2s;
+            font-weight: 900; font-size: 0.7rem; line-height: 1; text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+        .promo-float:hover { transform: scale(1.1); }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+
+        /* --- CART MODAL --- */
+        #cart-modal .modal-content { max-width: 600px; flex-direction: column !important; }
+        .cart-items { max-height: 300px; overflow-y: auto; margin-bottom: 20px; padding: 5px; }
+        .cart-item {
+            display: flex; justify-content: space-between; align-items: center; padding: 15px;
+            border: 3px solid #000; border-radius: 15px; margin-bottom: 10px; background: #fdfdfd; box-shadow: 3px 3px 0 #ccc;
+        }
+        .cart-item-info { text-align: left; }
+        .cart-item-name { font-weight: 900; text-transform: uppercase; font-size: 1rem; }
+        .cart-item-variant { font-size: 0.85rem; color: #555; font-style: italic; }
+        .cart-item-price { font-weight: 900; font-size: 1.1rem; color: #000; margin-right: 15px; }
+        .cart-remove { 
+            background: #ff0000; color: #fff; border: 2px solid #000; width: 30px; height: 30px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer;
+        }
+        .cart-remove:hover { transform: scale(1.1); }
+        .cart-total { font-size: 1.5rem; font-weight: 900; text-align: right; margin-bottom: 10px; border-top: 4px solid #000; padding-top: 10px; }
+        
+        .btn-checkout {
+            display: block; width: 100%; padding: 20px; background: #000; color: #fff; 
+            font-size: 1.5rem; font-weight: 900; text-transform: uppercase; text-align: center;
+            border: 4px solid #000; border-radius: 50px; cursor: pointer; transition: 0.2s; margin-top: 15px;
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+        }
+        .btn-checkout:hover { transform: scale(1.02); background: #fff; color: #000; box-shadow: 8px 8px 0px rgba(0,0,0,0.3); }
+
+        .payment-options { display: flex; gap: 10px; margin-bottom: 10px; }
+        .pay-btn { 
+            flex: 1; padding: 10px; border: 3px solid #000; cursor: pointer; font-weight: bold; text-align: center;
+            border-radius: 15px; background: #fff; transition: 0.2s;
+        }
+        .pay-btn:hover { transform: scale(1.02); }
+        .pay-btn.active { background: #000; color: #fff; }
+        .dp-note { 
+            font-size: 0.9rem; color: #ff3300; font-style: italic; margin-bottom: 15px; 
+            display: none; font-weight: bold; text-align: center; border: 2px dashed #ff3300; padding: 5px;
+        }
+
+        /* CUSTOM BAR */
+        #custom-bar {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 600px;
+            background: #000; color: #fff; padding: 15px; border-radius: 50px; display: none; align-items: center; justify-content: space-between;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.5); z-index: 2000; border: 4px solid #fff;
+        }
+        .status-text { font-weight: bold; font-size: 1rem; text-transform: uppercase; }
+        .btn-cancel-custom { background: #fff; color: #000; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; }
+
+        /* MODALS */
+        .modal {
+            display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; backdrop-filter: blur(3px);
+        }
+        .modal-content {
+            background: #fff; border: 4px solid var(--fg); border-radius: 40px; width: 90%; max-width: 800px; padding: 30px;
+            position: relative; box-shadow: 15px 15px 0px var(--fg); display: flex; flex-direction: column; gap: 20px; max-height: 90vh; overflow-y: auto;
+        }
+        /* DESKTOP FLEX ROW UNTUK PRODUK */
+        @media(min-width: 768px) { .modal-content { flex-direction: row; overflow-y: visible; } }
+        
+        #mix-modal .modal-content { flex-direction: column !important; align-items: center !important; text-align: center !important; max-width: 500px !important; }
+        
+        /* FIX DESKTOP PROMO: Tetap Column */
+        #promo-popup .modal-content {
+            flex-direction: column !important;
+            text-align: center;
+            max-width: 450px !important;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid #ff0000;
+            box-shadow: 15px 15px 0 #000;
+            padding: 40px 20px;
+        }
+
+        .close-modal {
+            position: absolute; 
+            top: 10px; right: 10px; 
+            background: var(--fg); color: #fff; 
+            width: 30px; height: 30px; 
+            border-radius: 50%; 
+            font-size: 1.2rem; 
+            font-weight: normal; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; z-index: 10;
+        }
+        
+        /* Modal Image Box */
+        .modal-img-box { flex: 1; aspect-ratio: 1/1; border: 3px solid var(--fg); border-radius: 20px; overflow: hidden; background: #fff; cursor: zoom-in; position: relative; }
+        .modal-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .modal-details { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .modal-title { font-size: 2rem; font-weight: 900; line-height: 1; margin-bottom: 10px; text-transform: uppercase; }
+        .modal-tag { display: inline-block; background: var(--fg); color: #fff; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; align-self: start; margin-bottom: 15px; }
+        
+        /* BUNDLE AREA */
+        .bundle-area {
+            background: #ff3300; border: 3px solid #000; border-radius: 20px; padding: 15px; color: #fff;
+            margin-bottom: 15px; box-shadow: 5px 5px 0 #000;
+            display: none; /* INITIALLY HIDDEN */
+        }
+        .bundle-title { font-weight: 900; margin-bottom: 10px; text-transform: uppercase; font-size: 1.1rem; text-align: center; border-bottom: 2px dashed #fff; padding-bottom: 5px; }
+
+        .option-grid { display: flex; gap: 10px; width: 100%; justify-content: center; }
+        .option-btn {
+            flex: 1; background: #fff; border: 3px solid #000; padding: 10px 5px; border-radius: 15px;
+            font-size: 0.8rem; font-weight: bold; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; align-items: center; color: #000;
+        }
+        .option-btn:hover { background: #eee; transform: scale(1.05); }
+        .option-price { color: red; font-size: 1rem; font-weight: 900; margin-top: 2px; }
+        
+        .modal-btns button, .modal-btns a {
+            display: block; width: 100%; padding: 12px; margin-bottom: 10px; border: 3px solid var(--fg); border-radius: 30px;
+            font-weight: bold; text-align: center; text-transform: uppercase; transition: 0.2s; background: #fff; color: var(--fg);
+        }
+        .modal-btns button:hover, .modal-btns a:hover { background: var(--fg); color: #fff; }
+        
+        /* ADD BUTTON TRIGGER */
+        .btn-add-trigger { background: var(--fg) !important; color: #fff !important; cursor: pointer; order: 10; /* FORCE BOTTOM */ }
+        .btn-add-trigger:hover { transform: scale(1.02); }
+
+        /* TOMBOL COBA CAHOL (SOLID) */
+        .btn-try { 
+            background: #ffcc00 !important; 
+            border: 3px solid #000 !important; 
+            color: #000 !important; 
+        }
+        .btn-try:hover { background: #ffe666 !important; }
+
+        /* REALPICT MODAL CSS */
+        #realpict-modal .modal-content { background: #000; border: none; padding: 0; max-width: 400px; }
+        #facade-container { position: relative; width: 100%; aspect-ratio: 9/16; background: #000; border-radius: 20px; overflow: hidden; }
+        
+        /* PLAY ICON OVERLAY */
+        #video-play-icon {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80px; height: 80px;
+            background: rgba(0,0,0,0.6); border: 4px solid #fff; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; pointer-events: none; /* Let clicks pass to video or container */
+            transition: 0.2s;
+        }
+        #video-play-icon::after {
+            content: ''; display: block; width: 0; height: 0; 
+            border-top: 15px solid transparent; border-bottom: 15px solid transparent; 
+            border-left: 25px solid #fff; margin-left: 5px;
+        }
+        
+        /* IMAGE VIEWER MODAL */
+        #image-viewer-modal {
+            display: none; position: fixed; z-index: 5000; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.95); align-items: center; justify-content: center;
+        }
+        #image-viewer-content { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .close-viewer { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; }
+
+        /* MIX DISPLAY & WATERMARK CONTAINER */
+        .mix-display-row {
+            display: flex; flex-direction: row; justify-content: center; gap: 15px; width: 100%;
+            margin-bottom: 20px; align-items: center;
+        }
+        .mix-display-card {
+            width: 45%; aspect-ratio: 1/1; 
+            border: 3px solid #000; border-radius: 20px; 
+            background: #fff; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 5px 5px 0 #ccc; position: relative; /* Relative for watermark */
+        }
+        .mix-display-card img { 
+            width: 100%; height: 100%; object-fit: contain; z-index: 1; position: relative;
+        }
+        
+        /* DYNAMIC WATERMARK OVERLAY */
+        .watermark-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10; pointer-events: none;
+            /* Background image will be set via JS */
+        }
+
+        #toast {
+            visibility: hidden; min-width: 250px; background-color: #000; color: #fff; text-align: center;
+            border-radius: 30px; padding: 16px; position: fixed; z-index: 5000; left: 50%; bottom: 30px;
+            transform: translateX(-50%); font-size: 1rem; font-weight: bold; border: 2px solid #fff;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
+        }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        footer { text-align: center; padding: 20px; font-weight: bold; margin-top: 40px; background: transparent; text-shadow: 2px 2px 0px #fff; }
+
+        /* ==========================================================================
+           RESPONSIVE HANDPHONE (Max Width 768px)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            /* 1. HERO */
+            #hero { padding: 50px 20px 20px 20px; }
+            .hero-title { font-size: 3rem; margin-bottom: 10px; }
+            .hero-desc { font-size: 0.9rem; padding: 10px; }
+            .hero-btn { padding: 12px 30px; font-size: 1rem; }
+            .btn-hot-sale-hero { font-size: 1.1rem; padding: 12px 25px; margin-top: 25px; }
+
+            /* 2. FILTER TOMBOL */
+            .filter-row { flex-direction: row; flex-wrap: nowrap; gap: 5px; justify-content: space-between; overflow-x: auto; padding-bottom: 5px; }
+            .filter-btn { width: auto; flex: 1; text-align: center; padding: 10px 5px; font-size: 0.7rem; white-space: nowrap; }
+            .filter-label { display: none; }
+
+            /* 3. PRODUCT GRID */
+            .product-grid { gap: 10px; }
+            .product-card { padding: 10px; }
+            .product-name { font-size: 0.9rem; }
+            
+            /* 4. BANNER */
+            .custom-mix-title { font-size: 1.3rem; }
+            .custom-mix-desc { font-size: 0.8rem; }
+
+            /* 5. HOT SALE */
+            .hot-header { font-size: 2.2rem; padding: 8px 15px; }
+            .promo-price-tag { font-size: 3.5rem; right: -5px; top: -15px; padding: 0 10px; border-width: 3px; }
+            .hot-card { padding: 10px; margin-bottom: 20px; }
+
+            /* 6. MODALS */
+            .modal-content { width: 95%; padding: 20px; max-height: 85vh; flex-direction: column; }
+            .modal-title { font-size: 1.5rem; }
+            
+            /* FIX GAMBAR */
+            .modal-img-box { flex: none; width: 100%; height: auto; aspect-ratio: 1 / 1; margin-bottom: 15px; background: transparent; }
+            .modal-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+            /* OPSI & BUTTONS */
+            .option-grid { gap: 5px; }
+            .option-btn { padding: 8px 2px; }
+            .option-btn span { font-size: 0.7rem; text-align: center; } 
+            .option-price { font-size: 0.9rem; }
+            .modal-btns button, .modal-btns a { padding: 10px; font-size: 0.9rem; }
+
+            /* 7. CART OVERLAP FIX (DITINGGIKAN) */
+            .cart-float { width: 60px; height: 60px; bottom: 130px; right: 20px; } 
+            .cart-icon { width: 28px; height: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast">Item Masuk Keranjang!</div>
+
+    <!-- PROMO FLOATING ICON (Hidden by default) -->
+    <div id="promo-float" class="promo-float" onclick="showPromoPopup()">
+        KLAIM<br>10%
+    </div>
+
+    <!-- PROMO POP-UP (Displayed on Load) -->
+    <div id="promo-popup" class="modal" style="display:flex;">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closePromoPopup()">&times;</div>
+            <h1 style="font-size:2.5rem; font-weight:900; margin-bottom:10px; color:#ff0000; text-transform:uppercase;">SELAMAT!!!</h1>
+            <p style="font-size:1.2rem; font-weight:bold; margin-bottom:15px; line-height:1.4;">
+                Kamu berkemungkinan mendapatkan <span style="background:#ff0000; color:#fff; padding:2px 5px;">DISKON 10%</span> sebagai 5 orang pembeli pertama!
+            </p>
+            <p style="font-size:0.8rem; font-style:italic; margin-bottom:20px;">*S&K berlaku</p>
+            <button onclick="claimPromoNow()" style="background:#ff0000; color:#fff; font-size:1.5rem; padding:15px; border:3px solid #000; width:100%; border-radius:30px; animation:shake 1s infinite;">KLAIM SEKARANG</button>
+        </div>
+    </div>
+
+    <div class="marquee-container">
+        <div class="marquee-content">
+            Happy shopping nyaholic! /// CAHOL-nya tuh NYAHOLLL!!! /// Happy shopping nyaholic! /// CAHOL-nya tuh NYAHOLLL!!! ///
+        </div>
+    </div>
+
+    <section id="hero">
+        <h1 class="hero-title">NYAHOLLL!!!</h1>
+        <div><button onclick="openHotSale()" class="btn-hot-sale-hero">HOT SALE NYAHOLLL!!!</button></div>
+    </section>
+
+    <!-- CATALOG LANGSUNG DISINI -->
+    <section id="catalog">
+        <div class="search-area">
+            <div class="search-container">
+                <input type="text" id="search-input" class="search-input" placeholder="SEARCH FOR YOUR BIAS...">
+                <button class="search-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">FILTER:</span>
+                <button class="filter-btn active" onclick="filterByBtn(this, 'all')">ALL</button>
+                <button class="filter-btn" onclick="filterByBtn(this, 'alay')">ALAY</button>
+                <button class="filter-btn" onclick="filterByBtn(this, 'kpop')">KPOP</button>
+                <button class="filter-btn" onclick="filterByBtn(this, 'nikotine')">NIKOTINE</button>
+                <button class="filter-btn" onclick="filterByBtn(this, 'song')">SONG</button>
+                <button class="filter-btn" onclick="filterByBtn(this, 'badztmaru')">BADZTMARU</button>
+            </div>
+        </div>
+        
+        <div class="custom-mix-banner" onclick="startCustomMode()">
+            <div class="custom-mix-title">CUSTOM CAHOL 2 SISI MU</div>
+            <div class="custom-mix-desc">(custom sisi depan dan belakang dari desain yang kamu suka)</div>
+        </div>
+        
+        <div class="product-grid" id="product-grid"></div>
+        
+        <div style="text-align: center; margin-top: 40px; display:none;"><button class="hero-btn" onclick="backHome()" style="padding: 10px 30px; background: #fff; color: #000;">X BACK HOME</button></div>
+    </section>
+
+    <section id="hot-sale-section">
+        <div class="hot-header">PROMO UGAL-UGALAN!!!</div>
+        <div class="hot-grid">
+            <!-- PROMO 1 -->
+            <div class="hot-card">
+                <div class="promo-price-tag">100K</div> 
+                <img src="public/images/PROMO/PROMO ALAY SERIES.png" class="hot-poster" onerror="this.src='https://via.placeholder.com/300x400?text=PROMO+ALAY'">
+                <div style="font-size: 0.85rem; font-weight: 900; text-align: center; margin-bottom: 10px; color: #ff0000; font-style: italic;">*Paket Hemat: 3 pcs Cuma 100K!</div>
+                <button onclick="addHotSaleToCart('PAKET HEMAT (ALAY)', 100000)" class="btn-take-promo">AMBIL PROMO INI</button>
+            </div>
+            <!-- PROMO 2 -->
+            <div class="hot-card">
+                <div class="promo-price-tag">100K</div> 
+                <img src="public/images/PROMO/PROMO NICOTINE SERIES.png" class="hot-poster" onerror="this.src='https://via.placeholder.com/300x400?text=PROMO+NIKOTIN'">
+                <div style="font-size: 0.85rem; font-weight: 900; text-align: center; margin-bottom: 10px; color: #ff0000; font-style: italic;">*Paket Hemat: 3 pcs Cuma 100K!</div>
+                <button onclick="addHotSaleToCart('PAKET HEMAT (NIKOTINE)', 100000)" class="btn-take-promo">AMBIL PROMO INI</button>
+            </div>
+            <!-- PROMO 3 -->
+            <div class="hot-card">
+                <div class="promo-price-tag">65K</div> 
+                <img src="public/images/THUMBNAIL/guilty as sin_ X about you.jpg" class="hot-poster" onerror="this.src='https://via.placeholder.com/300x400?text=PROMO+SONG'">
+                <button onclick="addHotSaleToCart('PAKET GALAU (SONG)', 65000)" class="btn-take-promo">AMBIL PROMO INI</button>
+            </div>
+            <!-- PROMO 4: BADZTMARU -->
+            <div class="hot-card">
+                <div class="promo-price-tag">65K</div> 
+                <img src="public/images/PROMO/PROMO BADZTMARU SERIES.png" class="hot-poster" onerror="this.src='https://via.placeholder.com/300x400?text=PROMO+BADZTMARU'">
+                <div style="font-size: 0.85rem; font-weight: 900; text-align: center; margin-bottom: 10px; color: #ff0000; font-style: italic;">*Take 2 Cuma 65K! (Normal 35K/pcs)</div>
+                <button onclick="addHotSaleToCart('PAKET TAKE 2 (BADZTMARU)', 65000)" class="btn-take-promo">AMBIL PROMO INI</button>
+            </div>
+        </div>
+        <button class="btn-kembali" onclick="backHome()">X KEMBALI</button>
+    </section>
+
+    <div id="custom-bar">
+        <span class="status-text" id="custom-status-text">PILIH PRODUK SISI DEPAN...</span>
+        <button class="btn-cancel-custom" onclick="cancelCustomMode()">BATAL</button>
+    </div>
+
+    <div class="cart-float" onclick="openCartModal()">
+        <svg class="cart-icon" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        <div class="cart-badge" id="cart-badge">0</div>
+    </div>
+
+    <!-- IMAGE VIEWER MODAL -->
+    <div id="image-viewer-modal">
+        <span class="close-viewer" onclick="closeImageViewer()">&times;</span>
+        <img id="image-viewer-content" src="">
+    </div>
+
+    <!-- CART MODAL -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closeCartModal()">&times;</div>
+            <h2 class="modal-title">KERANJANG BELANJA</h2>
+            <div class="cart-items" id="cart-items-container"></div>
+            
+            <div class="payment-options">
+                <div class="pay-btn active" id="btn-lunas" onclick="setPaymentMode(false)">LUNAS (100%)</div>
+                <div class="pay-btn" id="btn-dp" onclick="setPaymentMode(true)">DP (60%)</div>
+            </div>
+            
+            <div class="dp-note" id="dp-note">*Harga di atas adalah DP 60% yang harus dibayarkan di awal.</div>
+            <div class="cart-total" id="cart-total">Total: Rp 0</div>
+            <button onclick="checkout()" class="btn-checkout">CHECKOUT VIA FORM</button>
+        </div>
+    </div>
+
+    <!-- REALPICT MODAL -->
+    <div id="realpict-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" style="color: white; z-index: 10; right: 10px; top: 10px; background: transparent;">&times;</span>
+            <div id="facade-container"></div>
+        </div>
+    </div>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closeProductModal()">&times;</div>
+            <!-- WATERMARK ADDED HERE -->
+            <div class="modal-img-box" onclick="openImageViewer(document.getElementById('modal-img').src)">
+                <img src="" id="modal-img" alt="produk">
+                <div class="watermark-overlay"></div>
+            </div>
+            <div class="modal-details">
+                <div>
+                    <h2 class="modal-title" id="modal-title">NAMA PRODUK</h2>
+                    <span class="modal-tag" id="modal-cat">CATEGORY</span>
+                </div>
+                
+                <div class="modal-btns">
+                    <button class="btn-try" id="btn-open-try">★ COBA CAHOLNYA</button>
+                    <button onclick="openRealPict(currentModalProduct)">LIHAT REAL PICT</button>
+                </div>
+
+                <!-- ADD BUTTON DI BAWAH SENDIRI -->
+                <button id="btn-add-trigger" class="btn-add-trigger modal-btns" style="width:100%; padding:15px; font-weight:bold; font-size:1.2rem; border-radius:30px; margin-bottom:15px; margin-top:20px;" onclick="showBundleOptions('single')">MASUKKAN KERANJANG</button>
+
+                <div id="single-bundle-area" class="bundle-area">
+                    <div class="bundle-title">PILIH BUNDLE!!</div>
+                    <div class="option-grid">
+                        <div class="option-btn" onclick="addToCart(currentModalProduct, 'BUNDLE', 40000)"><span>CAHOL + CHARM</span><span class="option-price">40K</span></div>
+                        <div class="option-btn" onclick="addToCart(currentModalProduct, 'CAHOL ONLY', 35000)"><span>CAHOL AJA</span><span class="option-price">35K</span></div>
+                        <div class="option-btn" onclick="addToCart(currentModalProduct, 'CHARM ONLY', 7000)"><span>CHARM AJA</span><span class="option-price">7K</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mix-modal" class="modal">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closeMixModal()">&times;</div>
+            <h2 class="modal-title">CUSTOM MIX 2 SISI</h2>
+            
+            <div class="mix-display-row">
+                <div class="mix-display-card">
+                    <img id="mix-png-a" src="">
+                    <!-- DISINI KITA PAKAI CLASS WATERMARK YANG AKAN DIISI BACKGROUND VIA JS (COPAS TEKNOLOGI) -->
+                    <div class="watermark-overlay" id="watermark-a"></div>
+                </div>
+                <div class="mix-display-card">
+                    <img id="mix-png-b" src="">
+                    <!-- DISINI KITA PAKAI CLASS WATERMARK YANG AKAN DIISI BACKGROUND VIA JS (COPAS TEKNOLOGI) -->
+                    <div class="watermark-overlay" id="watermark-b"></div>
+                </div>
+            </div>
+            
+            <div class="modal-btns"><button class="btn-try" id="btn-try-mix">★ COBA CAHOL (MIX)</button></div>
+
+            <!-- ADD BUTTON DI BAWAH SENDIRI -->
+            <button id="btn-mix-add-trigger" class="btn-add-trigger modal-btns" style="width:100%; padding:15px; font-weight:bold; font-size:1.2rem; border-radius:30px; margin-bottom:15px; margin-top:20px; background:#000; color:#fff;" onclick="showBundleOptions('mix')">MASUKKAN KERANJANG</button>
+
+            <div id="mix-bundle-area" class="bundle-area">
+                <div class="bundle-title">PILIH BUNDLE!!</div>
+                <div class="option-grid">
+                    <div class="option-btn" onclick="addMixToCart('BUNDLE', 40000)"><span>CAHOL + CHARM</span><span class="option-price">40K</span></div>
+                    <div class="option-btn" onclick="addMixToCart('CAHOL ONLY', 35000)"><span>CAHOL AJA</span><span class="option-price">35K</span></div>
+                    <div class="option-btn" onclick="addMixToCart('CHARM ONLY', 7000)"><span>CHARM AJA</span><span class="option-price">7K</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 NYAHOLLL!!!</footer>
+
+    <script>
+        const products = [
+            { name: "adalah pokoknya...", category: "alay", folderName: "adalah pokoknya", file: "adalah pokoknya...png", realPictBase: "adalah pokoknya" },
+            { name: "YA ALLAH LINDUNGI", category: "alay", folderName: "lindungi", file: "YA ALLAH LINDUNGI.jpg", realPictBase: "lindungi" },
+            { name: "SPILL PACARNYA QHAQHA", category: "alay", folderName: "spill pacarnya qhaqha", file: "SPILL PACARNYA QHAQHA.png", realPictBase: "spill pacarnya qhaqha" },
+            { name: "Formula - Ald1", category: "kpop", folderName: "ald1", file: "Formula - Ald1.jpg", realPictBase: "ald1" },
+            { name: "FaSHioN - Cortis", category: "kpop", folderName: "cortis", file: "FaSHioN - Cortis.jpg", realPictBase: "cortis" },
+            { name: "Bad Desire - Enhypen", category: "kpop", folderName: "enha", file: "Bad Desire - Enhypen.jpg", realPictBase: "enha" },
+            { name: "Style - H2H", category: "kpop", folderName: "h2h", file: "Style - H2H.jpg", realPictBase: "h2h" },
+            { name: "Not Cute Anymore - I_LLIT", category: "kpop", folderName: "illit", file: "Not Cute Anymore - I_LLIT.jpg", realPictBase: "illit" },
+            { name: "Song of The Star - TXT", category: "kpop", folderName: "txt", file: "Song of The Star - TXT.jpg", realPictBase: "song of the stars_txt" },
+            { name: "MARLBORO", category: "nikotine", folderName: "marlboro", file: "MARLBORO.png", realPictBase: "marlboro" },
+            { name: "SAMPOERNA", category: "nikotine", folderName: "sampoerna", file: "SAMPOERNA.png", realPictBase: "sampoerna" },
+            { name: "SURYA 16", category: "nikotine", folderName: "surya", file: "SURYA 16.png", realPictBase: "surya" },
+            { name: "About You - The 1975", category: "song", folderName: "about you", file: "About You - The 1975.jpg", realPictBase: "about you" },
+            { name: "Guilty as sin_ - Taylor Swift", category: "song", folderName: "guilty as sin_", file: "Guilty as sin_ - Taylor Swift.jpg", realPictBase: "guilty as sin_" },
+            
+            /* --- PRODUK BARU TAMBAHAN --- */
+            { name: "sempurnanya aku npd", category: "song", folderName: "sempurnanya aku npd", file: "sempurnanya aku npd.png", realPictBase: "sempurnanya aku npd" },
+            { name: "kinyis kinyis", category: "alay", folderName: "kinyis kinyis", file: "kinyis kinyis.png", realPictBase: "kinyis kinyis" },
+            { name: "Lngshot - Moonwalkin'", category: "kpop", folderName: "Lngshot - Moonwalkin'", file: "Lngshot - Moonwalkin'.png", realPictBase: "Lngshot - Moonwalkin'" },
+            
+            /* --- KATEGORI BARU: BADZTMARU --- */
+            { name: "Crazy Badztmaru", category: "badztmaru", folderName: "crazy", file: "crazy badztmaru.png", realPictBase: "crazy_badztmaru" },
+            { name: "Cute Badztmaru", category: "badztmaru", folderName: "cute", file: "cute badztmaru.png", realPictBase: "cute_badztmaru" },
+            { name: "Freaky Badztmaru", category: "badztmaru", folderName: "freaky", file: "freaky badztmaru.png", realPictBase: "freaky_badztmaru" },
+            { name: "Happy Badztmaru", category: "badztmaru", folderName: "happy", file: "happy badztmaru.png", realPictBase: "happy_badztmaru" },
+            { name: "Lovely Badztmaru", category: "badztmaru", folderName: "lovely", file: "lovely badztmaru.png", realPictBase: "lovely_badztmaru" },
+            { name: "Non-Challant Badztmaru", category: "badztmaru", folderName: "non-challant", file: "non-challant badztmaru.png", realPictBase: "non-challant_badztmaru" },
+            { name: "Og-Bored Badztmaru", category: "badztmaru", folderName: "og-bored", file: "og-bored badztmaru.png", realPictBase: "og-bored_badztmaru" },
+            { name: "Sleepy Badztmaru", category: "badztmaru", folderName: "sleepy", file: "sleepy badztmaru.png", realPictBase: "sleepy_badztmaru" }
+        ];
+
+        let currentFilter = 'all';
+        let currentModalProduct = null;
+        let isCustomMode = false;
+        let selectionStep = 0;
+        let customSelection = { a: null, b: null };
+        let cart = [];
+        let isDP = false;
+
+        const catalogSection = document.getElementById('catalog');
+        const hotSaleSection = document.getElementById('hot-sale-section');
+        const homeSections = [document.getElementById('hero')]; 
+        const productGrid = document.getElementById('product-grid');
+        const modal = document.getElementById('product-modal');
+        const mixModal = document.getElementById('mix-modal');
+        const cartModal = document.getElementById('cart-modal');
+        const realpictModal = document.getElementById('realpict-modal');
+        const imageViewerModal = document.getElementById('image-viewer-modal');
+        const searchInput = document.getElementById('search-input');
+        const modalImg = document.getElementById('modal-img');
+        const btnOpenTry = document.getElementById('btn-open-try');
+        const btnTryMix = document.getElementById('btn-try-mix');
+        const customBar = document.getElementById('custom-bar');
+        const customStatus = document.getElementById('custom-status-text');
+
+        // --- HELPER UNTUK MENDAPATKAN PATH GAMBAR DEPAN/BELAKANG ---
+        function getFrontSrc(p) {
+            if (p.category === 'badztmaru') {
+                return `public/images/badztmaru/${p.folderName}.png`;
+            }
+            return `public/images/${p.category}/${p.folderName}/${p.folderName}_depan.png`;
+        }
+
+        function getBackSrc(p) {
+            if (p.category === 'badztmaru') {
+                return `public/images/badztmaru/back.png`; // Satu back untuk semua badztmaru
+            }
+            return `public/images/${p.category}/${p.folderName}/${p.folderName}_belakang.png`;
+        }
+
+        // --- COPAS TEKNOLOGI WATERMARK DARI try.html ---
+        function generateWatermarkPattern() {
+            const canvas = document.createElement('canvas');
+            // Ukuran pattern kecil yang akan di-repeat
+            const size = 300; 
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            ctx.rotate(-15 * Math.PI / 180);
+            const fontSize = 40; // Ukuran proporsional
+            ctx.font = `900 ${fontSize}px sans-serif`;
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; // TIPIS (0.1) sesuai try.html
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            // Gambar beberapa teks dalam canvas kecil untuk creating seamless pattern effect
+            // Kita gambar berulang kali di canvas kecil ini
+            ctx.fillText("NYAHOLLL PROPERTY", size/2, size/2);
+            ctx.fillText("NYAHOLLL PROPERTY", size/2 - 150, size/2 - 100);
+            ctx.fillText("NYAHOLLL PROPERTY", size/2 + 150, size/2 + 100);
+
+            return canvas.toDataURL();
+        }
+
+        const watermarkDataUrl = generateWatermarkPattern();
+        
+        // Apply background style dynamically to watermark class
+        // Ini memastikan overlay punya pattern yang sama persis
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .watermark-overlay {
+                background-image: url(${watermarkDataUrl});
+                background-repeat: repeat;
+            }
+        `;
+        document.head.appendChild(style);
+        // --- END COPAS TEKNOLOGI ---
+
+        // --- PROMO LOGIC START ---
+        function closePromoPopup() {
+            document.getElementById('promo-popup').style.display = 'none';
+            document.getElementById('promo-float').style.display = 'flex'; // Munculkan icon float
+        }
+
+        function showPromoPopup() {
+            document.getElementById('promo-popup').style.display = 'flex';
+            document.getElementById('promo-float').style.display = 'none';
+        }
+
+        function openPromoChat() {
+            window.open("https://wa.me/628970102079?text=Halo%20min,%20aku%20mau%20klaim%20diskon%2010%25%20first%20launch%20dong!", "_blank");
+        }
+
+        function claimPromoNow() {
+            closePromoPopup();
+            openPromoChat();
+        }
+        // --- PROMO LOGIC END ---
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.innerText = message; toast.className = "show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        function openImageViewer(src) {
+            document.getElementById('image-viewer-content').src = src;
+            imageViewerModal.style.display = 'flex';
+        }
+        function closeImageViewer() {
+            imageViewerModal.style.display = 'none';
+        }
+
+        function addToCart(product, variant, price) {
+            cart.push({ name: product.name, variant: variant, price: price });
+            updateCartUI(); showToast(variant + " Masuk Keranjang!");
+            closeProductModal();
+        }
+
+        function addMixToCart(variant, price) {
+            const mixName = `CUSTOM MIX (${customSelection.a.name} + ${customSelection.b.name})`;
+            cart.push({ name: mixName, variant: variant, price: price });
+            updateCartUI(); showToast("Custom Mix Masuk Keranjang!");
+            mixModal.style.display = 'none'; cancelCustomMode();
+        }
+
+        function addHotSaleToCart(promoName, price) {
+            cart.push({ name: promoName, variant: "FIXED BUNDLE", price: price });
+            updateCartUI(); showToast("Promo Masuk Keranjang!");
+        }
+
+        function updateCartUI() { document.getElementById('cart-badge').innerText = cart.length; }
+
+        function setPaymentMode(mode) {
+            isDP = mode;
+            const btnLunas = document.getElementById('btn-lunas');
+            const btnDP = document.getElementById('btn-dp');
+            if(isDP) { btnLunas.classList.remove('active'); btnDP.classList.add('active'); } 
+            else { btnLunas.classList.add('active'); btnDP.classList.remove('active'); }
+            calculateCartTotal();
+        }
+
+        function calculateCartTotal() {
+            let total = 0;
+            cart.forEach(item => total += item.price);
+            if (isDP) { total = total * 0.6; document.getElementById('dp-note').style.display = 'block'; } 
+            else { document.getElementById('dp-note').style.display = 'none'; }
+            document.getElementById('cart-total').innerText = `Total: Rp ${total.toLocaleString()}`;
+        }
+
+        function openCartModal() {
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+            if (cart.length === 0) { container.innerHTML = '<p style="text-align:center; padding:20px;">Keranjang kosong nih... Belanja dulu gih!</p>'; } 
+            else {
+                cart.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    div.innerHTML = `
+                        <div class="cart-item-info"><div class="cart-item-name">${item.name}</div><div class="cart-item-variant">${item.variant}</div></div>
+                        <div style="display:flex; align-items:center;"><div class="cart-item-price">${(item.price/1000)}K</div><div class="cart-remove" onclick="removeFromCart(${index})">X</div></div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+            calculateCartTotal();
+            cartModal.style.display = 'flex';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            openCartModal(); updateCartUI();
+        }
+
+        function closeCartModal() { cartModal.style.display = 'none'; }
+
+        function checkout() {
+            if (cart.length === 0) { showToast("Keranjang kosong!"); return; }
+            window.open("https://forms.gle/9jwcuqgGwjpnmKYC8", "_blank");
+        }
+
+        // --- REALPICT FACADE LOGIC ---
+        function openRealPict(product) {
+            modal.style.display = 'none';
+            const base = product.realPictBase || product.folderName; 
+            
+            const thumbPath = `public/images/REALPICT/${base}_thumb.jpg`; 
+            const videoPath = `public/images/REALPICT/${base}_realpict.mp4`;
+
+            const container = document.getElementById('facade-container');
+            
+            container.innerHTML = `
+                <div style="position: relative; width: 100%; height: 100%; background: #000; cursor: pointer;" onclick="toggleVideoState()">
+                    <video id="active-video"
+                        src="${videoPath}"
+                        poster="${thumbPath}"
+                        muted loop playsinline
+                        style="width:100%; height:100%; object-fit:cover;"
+                    ></video>
+                    <div id="video-play-icon"></div>
+                </div>
+            `;
+            realpictModal.style.display = 'flex';
+        }
+
+        // FUNGSI PLAY/PAUSE MANUAL
+        function toggleVideoState() {
+            const vid = document.getElementById('active-video');
+            const icon = document.getElementById('video-play-icon');
+            if (!vid || !icon) return;
+
+            if (vid.paused) {
+                vid.play();
+                icon.style.opacity = '0'; // Sembunyikan icon play
+            } else {
+                vid.pause();
+                icon.style.opacity = '1'; // Munculkan icon play
+            }
+        }
+
+        function closeRealPict() {
+            const container = document.getElementById('facade-container');
+            container.innerHTML = ""; // Stop video & clean up
+            realpictModal.style.display = "none";
+            if (currentModalProduct) { modal.style.display = "flex"; }
+        }
+
+        // --- NAVIGATION ---
+        function openHotSale() {
+            homeSections.forEach(el => el.style.display = 'none');
+            catalogSection.style.display = 'none';
+            hotSaleSection.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function backHome() {
+            hotSaleSection.style.display = 'none';
+            homeSections.forEach(el => el.style.display = ''); 
+            catalogSection.style.display = 'block';
+            cancelCustomMode();
+        }
+
+        function filterByBtn(btnElement, category) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+            currentFilter = category;
+            renderProducts();
+        }
+
+        function renderProducts() {
+            productGrid.innerHTML = '';
+            const query = searchInput.value.toLowerCase();
+            const filtered = products.filter(p => {
+                const matchesCat = currentFilter === 'all' || p.category.toLowerCase() === currentFilter.toLowerCase();
+                const matchesSearch = p.name.toLowerCase().includes(query);
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) { productGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; font-weight: bold;">Barang ga ada woy...</p>'; return; }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                const imgSrc = `public/images/THUMBNAIL/${p.file}`;
+                card.innerHTML = `
+                    <div class="card-img-container"><img src="${imgSrc}" onerror="this.src='https://via.placeholder.com/300?text=NO+IMAGE'"></div>
+                    <div class="product-name">${p.name}</div>
+                    <div class="product-price">${p.category.toUpperCase()}</div>
+                `;
+                card.onclick = () => { if (isCustomMode) handleCustomSelection(p); else openModal(p); };
+                productGrid.appendChild(card);
+            });
+        }
+
+        searchInput.addEventListener('keyup', renderProducts);
+
+        function startCustomMode() {
+            isCustomMode = true; selectionStep = 1; customSelection = { a: null, b: null };
+            customBar.style.display = 'flex'; customStatus.innerText = "★ STEP 1: PILIH PRODUK SISI DEPAN";
+            renderProducts(); window.scrollTo({ top: catalogSection.offsetTop, behavior: 'smooth' });
+        }
+
+        function cancelCustomMode() {
+            isCustomMode = false; selectionStep = 0; customBar.style.display = 'none'; renderProducts();
+        }
+
+        function handleCustomSelection(product) {
+            if (selectionStep === 1) {
+                customSelection.a = product; selectionStep = 2;
+                customStatus.innerText = "★ STEP 2: PILIH PRODUK SISI BELAKANG";
+                showToast(`Sisi Depan: ${product.name} terpilih!`);
+            } else if (selectionStep === 2) {
+                customSelection.b = product; showMixModal();
+            }
+        }
+
+        function showMixModal() {
+            customBar.style.display = 'none';
+            
+            // RESET STATE
+            document.getElementById('btn-mix-add-trigger').style.display = 'block';
+            document.getElementById('mix-bundle-area').style.display = 'none';
+
+            const pA = customSelection.a; const pB = customSelection.b;
+            
+            // GUNAKAN HELPER FUNCTION UNTUK PATH DINAMIS
+            const pngA = getFrontSrc(pA);
+            const pngB = getFrontSrc(pB);
+
+            document.getElementById('mix-png-a').src = pngA;
+            document.getElementById('mix-png-b').src = pngB;
+            
+            btnTryMix.onclick = () => {
+                const url = `try.html?mode=mix&frontSrc=${encodeURIComponent(pngA)}&backSrc=${encodeURIComponent(pngB)}`;
+                window.open(url, '_blank');
+            };
+            mixModal.style.display = 'flex';
+        }
+        function closeMixModal() { mixModal.style.display = 'none'; cancelCustomMode(); }
+
+        function openModal(product) {
+            currentModalProduct = product;
+            
+            // RESET STATE
+            document.getElementById('btn-add-trigger').style.display = 'block';
+            document.getElementById('single-bundle-area').style.display = 'none';
+
+            modalImg.style.display = 'block';
+            document.getElementById('modal-title').textContent = product.name;
+            document.getElementById('modal-cat').textContent = product.category.toUpperCase();
+            modalImg.src = `public/images/THUMBNAIL/${product.file}`;
+            
+            btnOpenTry.onclick = () => {
+                // LOGIKA KHUSUS BADZTMARU AGAR URLNYA BENAR
+                if (product.category === 'badztmaru') {
+                    const fSrc = getFrontSrc(product);
+                    const bSrc = getBackSrc(product);
+                    const url = `try.html?mode=mix&frontSrc=${encodeURIComponent(fSrc)}&backSrc=${encodeURIComponent(bSrc)}`;
+                    window.open(url, '_blank');
+                } else {
+                    const url = `try.html?folder=${encodeURIComponent(product.folderName)}&cat=${encodeURIComponent(product.category)}`;
+                    window.open(url, '_blank');
+                }
+            };
+            modal.style.display = "flex";
+        }
+
+        function closeProductModal() { document.getElementById('product-modal').style.display = 'none'; }
+
+        function showBundleOptions(type) {
+            if(type === 'single') {
+                document.getElementById('btn-add-trigger').style.display = 'none';
+                document.getElementById('single-bundle-area').style.display = 'block';
+            } else if(type === 'mix') {
+                document.getElementById('btn-mix-add-trigger').style.display = 'none';
+                document.getElementById('mix-bundle-area').style.display = 'block';
+            }
+        }
+
+        window.onclick = (e) => { 
+            if (e.target == modal) closeProductModal();
+            if (e.target == mixModal) closeMixModal();
+            if (e.target == cartModal) cartModal.style.display = "none";
+            if (e.target == realpictModal) closeRealPict();
+            if (e.target == imageViewerModal) closeImageViewer();
+            if (e.target == document.getElementById('promo-popup')) closePromoPopup(); 
+        }
+        document.querySelector('#realpict-modal .close-modal').onclick = () => closeRealPict();
+
+        renderProducts();
+    </script>
+</body>
+</html>
